@@ -1,0 +1,22 @@
+{
+  "name": "inty",
+  "version": "1.0.0",
+  "description": "Interpreter guide",
+  "main": "inty.js",
+  "scripts": {
+    "test": "node inty.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/darkf/inty.git"
+  },
+  "keywords": [
+    "interpreter"
+  ],
+  "author": "darkf",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/darkf/inty/issues"
+  },
+  "homepage": "https://github.com/darkf/inty#readme"
+}
