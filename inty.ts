@@ -6,6 +6,17 @@
 // It follows that it is easy to implement other non-trivial control flow, such as continuations (e.g. call/cc, exceptions, ...).
 // It's also a fair bit nicer/easier than specifying a bytecode language / virtual machine and code generator / interpreter.
 //
+// At a high level, the idea is that we have a stack of states (which consist of an AST node, the currently evaluated value,
+// and some contextual bookkeeping state), and an iterative step function for each AST node type.
+// At each evaluation step, we run the step function on the state at the top of the state stack.
+// The step function uses the state to determine where it is in evaluation; e.g. for a binary operator expression,
+// it would check if the left hand side has been evaluated yet (if not, push it onto the stack and evaluate it),
+// if the right hand side has been evaluated, or if both are evaluated and we can return a result.
+//
+// In this way, all of our interpreter state (the state stack and if we've halted) is plain serializable data,
+// and the state itself keeps track of where we are in the computation -- so we're free to leave off anywhere,
+// even across interpreter runs.
+//
 // The idea here is based off of how < https://github.com/NeilFraser/JS-Interpreter > works.
 // I have not seen this pattern elsewhere, nor do I know of a name for it, so I will give credit there.
 
