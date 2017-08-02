@@ -226,3 +226,22 @@ const newInterp = Interpreter.deserialize(state);
 
 // And run! It should evaluate the second print statement now, from where it left off.
 newInterp.run();
+
+// And we're done! That wasn't so bad, was it?
+
+// Now, there are some fun improvements to be made over this and over JS-Interpreter:
+//
+// - Instead of implementing `return` (or other forms of unwinding, such as exceptions, `break`, `continue`, ...) by
+//   popping the stack until you reach a call node (as JS-Interpreter does), you could instead keep a separate call stack
+//   providing the index of the call node, and then to return, pop all nodes up to that point at once:
+//       this.stateStack.length = this.callStack.pop();
+//   This is much faster and arguably cleaner.
+//
+// - Implement first-class continuations, such as call/cc or delimited continuations.
+//
+// - Implement a safer/nicer finite state machine abstraction for use in step functions.
+//
+// etc.
+//
+// The sky's the limit here, and there are probably nicer ways to do some of this.
+// If you discover any, don't hesitate to share!
