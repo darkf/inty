@@ -1,4 +1,4 @@
-// In this file I'll outline and implement a pattern for programming language interpreters that
+// In this file I'll outline and implement a pattern for small-step programming language interpreters that
 // allows for incremental evaluation, state (de)serialization (e.g. to disk), pausing/resuming,
 // and is not tied to the actual call stack (in effect by creating a trampoline, as a side effect
 // of the incremental step function.)
@@ -17,8 +17,12 @@
 // and the state itself keeps track of where we are in the computation -- so we're free to leave off anywhere,
 // even across interpreter runs.
 //
-// The idea here is based off of how < https://github.com/NeilFraser/JS-Interpreter > works.
-// I have not seen this pattern elsewhere, nor do I know of a name for it, so I will give credit there.
+// The idea here outlines a "small-step operational interpreter".
+// See < http://matt.might.net/articles/writing-an-interpreter-substitution-denotational-big-step-small-step >
+// for more information.
+//
+// Unfortunately I don't see this style of interpreter used very often, and I was only recently made aware of it.
+// It's high time we spread it!
 
 /* This file is licensed under the terms of the ISC license, which follows.
 
@@ -248,7 +252,7 @@ newInterp.run();
 //       this.stateStack.length = this.callStack.pop();
 //   This is much faster and arguably cleaner.
 //
-// - Implement first-class continuations, such as call/cc or delimited continuations.
+// - Implement first-class continuations, such as call/cc or delimited continuations, by preserving/restoring the state stack.
 //
 // - Implement a safer/nicer finite state machine abstraction for use in step functions.
 //
